@@ -29,6 +29,39 @@ public class Luke {
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(tasks[index - 1]);
 
+            } else if (input.startsWith("todo ")) {
+                String description = input.substring(5);
+                Task task = new ToDo(description);
+                tasks[len] = task;
+                len++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task);
+                System.out.println("Now you have " + len + " tasks in the list.");
+
+            } else if (input.startsWith("deadline ")) {
+                int byIndex = input.indexOf("/by ");
+                String description = input.substring(9, byIndex);
+                String by = input.substring(byIndex + 3);
+                Task task = new Deadline(description, by);
+                tasks[len] = task;
+                len++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task);
+                System.out.println("Now you have " + len + " tasks in the list.");
+
+            } else if (input.startsWith("event ")) {
+                int fromIndex = input.indexOf("/from ");
+                int toIndex = input.indexOf("/to ", fromIndex);
+                String description = input.substring(6, fromIndex);
+                String from = input.substring(fromIndex + 5, toIndex);
+                String to = input.substring(toIndex + 3);
+                Task task = new Event(description, from, to);
+                tasks[len] = task;
+                len++;
+                System.out.println("Got it. I've added this task:");
+                System.out.println(task);
+                System.out.println("Now you have " + len + " tasks in the list.");
+
             } else if (!Objects.equals(input, "")) {
                  tasks[len] = new Task(input);
                  len++;
