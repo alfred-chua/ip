@@ -5,7 +5,7 @@ public class Luke {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        String greeting = "Hello! I'm Luke \n"
+        String greeting = "Hello! I'm Luke\n"
                 + "What can I do for you?";
         String goodbye = "Bye. Hope to see you again soon!";
         String input = "";
