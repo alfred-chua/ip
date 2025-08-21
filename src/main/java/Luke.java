@@ -30,6 +30,14 @@ public class Luke {
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(tasks.get(index - 1));
 
+            } else if (input.startsWith("delete ")) {
+                String strIndex = input.substring(7);
+                int index = Integer.parseInt(strIndex);
+                System.out.println("Noted. I've removed this task:");
+                System.out.println(tasks.get(index - 1));
+                tasks.remove(index - 1);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list");
+
             } else if (input.startsWith("todo ") ||
                         input.startsWith("deadline ") ||
                         input.startsWith("event ")) {
