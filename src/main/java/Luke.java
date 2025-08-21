@@ -1,5 +1,6 @@
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Luke {
     public static void main(String[] args) {
@@ -9,8 +10,7 @@ public class Luke {
                 + "What can I do for you?";
         String goodbye = "Bye. Hope to see you again soon!";
         String input = "";
-        Task[] tasks = new Task[100];
-        int len = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println(greeting);
 
@@ -18,16 +18,17 @@ public class Luke {
 
             if (Objects.equals(input, "list")) {
                 System.out.println("Here are the tasks in your list:");
+                int len = tasks.size();
                 for (int i = 0; i < len; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
+                    System.out.println((i + 1) + ". " + tasks.get(i));
                 }
 
             } else if (input.startsWith("mark ")) {
                 String strIndex = input.substring(5);
                 int index = Integer.parseInt(strIndex);
-                tasks[index - 1].complete();
+                tasks.get(index - 1).complete();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println(tasks[index - 1]);
+                System.out.println(tasks.get(index - 1));
 
             } else if (input.startsWith("todo ") ||
                         input.startsWith("deadline ") ||
@@ -73,11 +74,10 @@ public class Luke {
                     continue;
                 }
 
-                tasks[len] = task;
-                len++;
+                tasks.add(task);
                 System.out.println("Got it. I've added this task:");
                 System.out.println(task);
-                System.out.println("Now you have " + len + " tasks in the list.");
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
 
             } else if (!Objects.equals(input, "")) {
                  System.out.println("Error: unknown command");
