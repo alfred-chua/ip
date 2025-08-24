@@ -1,6 +1,9 @@
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Luke {
     public static void main(String[] args) {
@@ -13,6 +16,17 @@ public class Luke {
         ArrayList<Task> tasks = new ArrayList<>();
 
         System.out.println(greeting);
+        File taskFile = new File("tasks.txt");
+        try {
+            boolean canCreateFile = taskFile.createNewFile();
+            if (canCreateFile) {
+                System.out.println("File created: " + taskFile.getName());
+            } else {
+                System.out.println("File " + taskFile.getName() + " already exists");
+            }
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
+        }
 
         while (!Objects.equals(input, "bye")) {
 
@@ -138,6 +152,36 @@ public class Luke {
                  input = "";
                  continue;
             }
+
+            try {
+                FileWriter writer = new FileWriter("tasks.txt");
+                for (Task task: tasks) {
+                    String type;
+                    int isCompleted;
+                    if (task.completed) {
+                        isCompleted = 1;
+                    } else {
+                        isCompleted = 0;
+                    }
+                    if (task instanceof ToDo) {
+                        type = "T ";
+                        writer.write(type + "| " + isCompleted + " | " + task.description + "\n");
+                    } else if (task instanceof Deadline) {
+                        type = "D ";
+                        writer.write(type + "| " + isCompleted + " | " + task.description +
+                                "|" + ((Deadline) task).by + "\n");
+                    } else {
+                        type = "E ";
+                        writer.write(type + "| " + isCompleted + " | " + task.description +
+                                "|" + ((Event) task).from + "|" + ((Event) task).to + "\n");
+                    }
+                }
+                writer.close();
+            } catch (IOException e) {
+                System.out.println("Error: " + e);
+            }
+
+
             input = sc.nextLine();
         }
         System.out.println(goodbye);
