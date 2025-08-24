@@ -1,6 +1,12 @@
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
+import static java.util.Objects.isNull;
 
 public class Luke {
     public static void main(String[] args) {
@@ -12,6 +18,33 @@ public class Luke {
         String input = "";
         ArrayList<Task> tasks = new ArrayList<>();
 
+        try {
+            File taskFile = new File("tasks.txt");
+            Scanner reader = new Scanner(taskFile);
+            while (reader.hasNextLine()) {
+                String data = reader.nextLine();
+                String[] parts = data.split("\\|");
+                Task task;
+
+                if (Objects.equals(parts[0], "T")) {
+                    task = new ToDo(parts[2]);
+                } else if (Objects.equals(parts[0], "D")) {
+                    task = new Deadline(parts[2], parts[3]);
+                } else if (Objects.equals(parts[0], "E")) {
+                    task = new Event(parts[2], parts[3], parts[4]);
+                } else {
+                    task = null;
+                    System.out.println("Error: task type not recognized when reading file");
+                }
+                if (Objects.equals(parts[1], "1") && !isNull(task)) {
+                    task.completed = true;
+                }
+                tasks.add(task);
+            }
+        } catch (FileNotFoundException e) {
+            File taskFile = new File("tasks.txt");
+            System.out.println("File created: " + taskFile.getName());
+        }
         System.out.println(greeting);
 
         while (!Objects.equals(input, "bye")) {
@@ -138,6 +171,36 @@ public class Luke {
                  input = "";
                  continue;
             }
+
+            try {
+                FileWriter writer = new FileWriter("tasks.txt");
+                for (Task task: tasks) {
+                    String type;
+                    int isCompleted;
+                    if (task.completed) {
+                        isCompleted = 1;
+                    } else {
+                        isCompleted = 0;
+                    }
+                    if (task instanceof ToDo) {
+                        type = "T";
+                        writer.write(type + "|" + isCompleted + "|" + task.description + "\n");
+                    } else if (task instanceof Deadline) {
+                        type = "D";
+                        writer.write(type + "|" + isCompleted + "|" + task.description +
+                                "|" + ((Deadline) task).by + "\n");
+                    } else {
+                        type = "E";
+                        writer.write(type + "|" + isCompleted + "|" + task.description +
+                                "|" + ((Event) task).from + "|" + ((Event) task).to + "\n");
+                    }
+                }
+                writer.close();
+            } catch (IOException e) {
+                System.out.println("Error: " + e);
+            }
+
+
             input = sc.nextLine();
         }
         System.out.println(goodbye);
