@@ -1,6 +1,5 @@
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -73,71 +72,10 @@ public class Parser {
             } else if (input.startsWith("todo ") ||
                     input.startsWith("deadline ") ||
                     input.startsWith("event ")) {
-                Task task;
-                String description;
 
-                if (input.startsWith("todo ")) {
-                    description = input.substring(5);
-                    if (description.replaceAll("\\s", "").isEmpty()) {
-                        System.out.println("Error: description cannot be empty");
-                        input = "";
-                        continue;
-                    }
-                    task = new ToDo(description);
-                } else if (input.startsWith("deadline ")) {
-                    int byIndex = input.indexOf("/by ");
-                    if (byIndex == -1) {
-                        System.out.println("Error: Deadline task must be specified with /by ");
-                        input = "";
-                        continue;
-                    }
-                    description = input.substring(9, byIndex - 1);
-                    String by = input.substring(byIndex + 4);
-
-                    if (by.replaceAll("\\s", "").isEmpty()) {
-                        System.out.println("Error: by date cannot be empty");
-                        input = "";
-                        continue;
-                    }
-                    LocalDate byDate = LocalDate.parse(by);
-                    task = new Deadline(description, byDate);
-                } else {
-                    int fromIndex = input.indexOf("/from ");
-                    int toIndex = input.indexOf("/to ", fromIndex);
-                    if (fromIndex == -1 || toIndex == -1) {
-                        System.out.println("Error: Event task must be specified with /from and /to");
-                        input = "";
-                        continue;
-                    }
-                    description = input.substring(6, fromIndex - 1);
-                    String from = input.substring(fromIndex + 6, toIndex - 1);
-                    String to = input.substring(toIndex + 4);
-
-                    if (from.replaceAll("\\s", "").isEmpty()) {
-                        System.out.println("Error: from date cannot be empty");
-                        input = "";
-                        continue;
-                    }
-                    if (to.replaceAll("\\s", "").isEmpty()) {
-                        System.out.println("Error: to date cannot be empty");
-                        input = "";
-                        continue;
-                    }
-                    LocalDate fromDate = LocalDate.parse(from);
-                    LocalDate toDate = LocalDate.parse(to);
-                    task = new Event(description, fromDate, toDate);
-                }
-
-                if (description.replaceAll("\\s", "").isEmpty()) {
-                    System.out.println("Error: description cannot be empty");
-                    input = "";
-                    continue;
-                }
-
-                tasks.add(task);
-                System.out.println("Got it. I've added this task:");
-                System.out.println(task);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                TaskList tasklist = new TaskList(input, tasks);
+                tasklist.addTask();
+                tasks = tasklist.tasks;
 
             } else if (!Objects.equals(input, "")) {
                 System.out.println("Error: unknown command");
