@@ -16,72 +16,29 @@ public class Parser {
 
     public void run() {
         Scanner sc = new Scanner(System.in);
+        TaskList tasklist = new TaskList(input, tasks);
         while (!Objects.equals(input, "bye")) {
 
             if (Objects.equals(input, "list")) {
-                int len = tasks.size();
-                if (len == 0) {
-                    System.out.println("You have no tasks in your list");
-                } else {
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < len; i++) {
-                        System.out.println((i + 1) + ". " + tasks.get(i));
-                    }
-                }
-
+                tasklist.listTasks();
 
             } else if (input.startsWith("mark ")) {
-                String strIndex = input.substring(5);
-                int index;
-                try {
-                    index = Integer.parseInt(strIndex);
-                    if (index <= 0 || index > tasks.size()) {
-                        System.out.println("Error: marked value cannot be negative or more than list size");
-                        input = "";
-                        continue;
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Error: marked value must be a number");
-                    input = "";
-                    continue;
-                }
-                tasks.get(index - 1).complete();
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(tasks.get(index - 1));
+                tasklist.markTask(input);
 
             } else if (input.startsWith("delete ")) {
-                String strIndex = input.substring(7);
-                int index;
-                try {
-                    index = Integer.parseInt(strIndex);
-                    if (index <= 0 || index > tasks.size()) {
-                        System.out.println("Error: deleted value cannot be negative or more than list size");
-                        input = "";
-                        continue;
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Error: deleted value must be a number");
-                    input = "";
-                    continue;
-                }
-                System.out.println("Noted. I've removed this task:");
-                System.out.println(tasks.get(index - 1));
-                tasks.remove(index - 1);
-                System.out.println("Now you have " + tasks.size() + " tasks in the list");
+                tasklist.deleteTask(input);
 
             } else if (input.startsWith("todo ") ||
                     input.startsWith("deadline ") ||
                     input.startsWith("event ")) {
-
-                TaskList tasklist = new TaskList(input, tasks);
-                tasklist.addTask();
-                tasks = tasklist.tasks;
+                tasklist.addTask(input);
 
             } else if (!Objects.equals(input, "")) {
                 System.out.println("Error: unknown command");
                 input = "";
                 continue;
             }
+            tasks = tasklist.tasks;
 
             try {
                 FileWriter writer = new FileWriter("tasks.txt");
