@@ -5,20 +5,20 @@ Got it. I've added this task:
 [T][ ] borrow book
 Now you have 1 tasks in the list.
 Got it. I've added this task:
-[D][ ] return book (by: tomorrow)
+[D][ ] return book (by: Jan 1 2020)
 Now you have 2 tasks in the list.
 Got it. I've added this task:
-[E][ ] tutorial (from: 2pm to: 4pm)
+[E][ ] tutorial (from: Jan 2 2020 to: Jan 3 2020)
 Now you have 3 tasks in the list.
 Nice! I've marked this task as done:
-[D][X] return book (by: tomorrow)
+[D][X] return book (by: Jan 1 2020)
 Error: marked value cannot be negative or more than list size
 Error: deleted value cannot be negative or more than list size
 Noted. I've removed this task:
 [T][ ] borrow book
 Now you have 2 tasks in the list
 Here are the tasks in your list:
-1. [D][X] return book (by: tomorrow)
-2. [E][ ] tutorial (from: 2pm to: 4pm)
+1. [D][X] return book (by: Jan 1 2020)
+2. [E][ ] tutorial (from: Jan 2 2020 to: Jan 3 2020)
 Error: unknown command
 Bye. Hope to see you again soon!
