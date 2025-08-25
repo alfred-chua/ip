@@ -1,13 +1,9 @@
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.time.LocalDate;
-
-import static java.util.Objects.isNull;
 
 public class Luke {
     public static void main(String[] args) {
@@ -17,38 +13,11 @@ public class Luke {
                 + "What can I do for you?";
         String goodbye = "Bye. Hope to see you again soon!";
         String input = "";
-        ArrayList<Task> tasks = new ArrayList<>();
 
-        try {
-            File taskFile = new File("tasks.txt");
-            Scanner reader = new Scanner(taskFile);
-            while (reader.hasNextLine()) {
-                String data = reader.nextLine();
-                String[] parts = data.split("\\|");
-                Task task;
+        Storage storage = new Storage("tasks.txt");
+        storage.initialize();
+        ArrayList<Task> tasks = storage.tasks;
 
-                if (Objects.equals(parts[0], "T")) {
-                    task = new ToDo(parts[2]);
-                } else if (Objects.equals(parts[0], "D")) {
-                    LocalDate byDate = LocalDate.parse(parts[3]);
-                    task = new Deadline(parts[2], byDate);
-                } else if (Objects.equals(parts[0], "E")) {
-                    LocalDate fromDate = LocalDate.parse(parts[3]);
-                    LocalDate toDate = LocalDate.parse(parts[4]);
-                    task = new Event(parts[2], fromDate, toDate);
-                } else {
-                    task = null;
-                    System.out.println("Error: task type not recognized when reading file");
-                }
-                if (Objects.equals(parts[1], "1") && !isNull(task)) {
-                    task.completed = true;
-                }
-                tasks.add(task);
-            }
-        } catch (FileNotFoundException e) {
-            File taskFile = new File("tasks.txt");
-            System.out.println("File created: " + taskFile.getName());
-        }
         System.out.println(greeting);
 
         while (!Objects.equals(input, "bye")) {
