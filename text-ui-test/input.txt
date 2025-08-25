@@ -1,7 +1,7 @@
 list
 todo borrow book
-deadline return book /by tomorrow
-event tutorial /from 2pm /to 4pm
+deadline return book /by 2020-01-01
+event tutorial /from 2020-01-02 /to 2020-01-03
 mark 2
 mark 5
 delete -3

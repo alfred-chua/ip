@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 
 import static java.util.Objects.isNull;
 
@@ -29,9 +30,12 @@ public class Luke {
                 if (Objects.equals(parts[0], "T")) {
                     task = new ToDo(parts[2]);
                 } else if (Objects.equals(parts[0], "D")) {
-                    task = new Deadline(parts[2], parts[3]);
+                    LocalDate byDate = LocalDate.parse(parts[3]);
+                    task = new Deadline(parts[2], byDate);
                 } else if (Objects.equals(parts[0], "E")) {
-                    task = new Event(parts[2], parts[3], parts[4]);
+                    LocalDate fromDate = LocalDate.parse(parts[3]);
+                    LocalDate toDate = LocalDate.parse(parts[4]);
+                    task = new Event(parts[2], fromDate, toDate);
                 } else {
                     task = null;
                     System.out.println("Error: task type not recognized when reading file");
@@ -121,15 +125,16 @@ public class Luke {
                         input = "";
                         continue;
                     }
-                    description = input.substring(9, byIndex);
-                    String by = input.substring(byIndex + 3);
+                    description = input.substring(9, byIndex - 1);
+                    String by = input.substring(byIndex + 4);
 
                     if (by.replaceAll("\\s", "").isEmpty()) {
                         System.out.println("Error: by date cannot be empty");
                         input = "";
                         continue;
                     }
-                    task = new Deadline(description, by);
+                    LocalDate byDate = LocalDate.parse(by);
+                    task = new Deadline(description, byDate);
                 } else {
                     int fromIndex = input.indexOf("/from ");
                     int toIndex = input.indexOf("/to ", fromIndex);
@@ -138,9 +143,9 @@ public class Luke {
                         input = "";
                         continue;
                     }
-                    description = input.substring(6, fromIndex);
-                    String from = input.substring(fromIndex + 5, toIndex);
-                    String to = input.substring(toIndex + 3);
+                    description = input.substring(6, fromIndex - 1);
+                    String from = input.substring(fromIndex + 6, toIndex - 1);
+                    String to = input.substring(toIndex + 4);
 
                     if (from.replaceAll("\\s", "").isEmpty()) {
                         System.out.println("Error: from date cannot be empty");
@@ -152,7 +157,9 @@ public class Luke {
                         input = "";
                         continue;
                     }
-                    task = new Event(description, from, to);
+                    LocalDate fromDate = LocalDate.parse(from);
+                    LocalDate toDate = LocalDate.parse(to);
+                    task = new Event(description, fromDate, toDate);
                 }
 
                 if (description.replaceAll("\\s", "").isEmpty()) {
