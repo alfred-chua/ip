@@ -1,3 +1,5 @@
+package luke;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -79,7 +81,7 @@ public class TaskList {
         } else if (input.startsWith("deadline ")) {
             int byIndex = input.indexOf("/by ");
             if (byIndex == -1) {
-                System.out.println("Error: Deadline task must be specified with /by ");
+                System.out.println("Error: luke.Deadline task must be specified with /by ");
                 return;
             }
             description = input.substring(9, byIndex - 1);
@@ -95,7 +97,7 @@ public class TaskList {
             int fromIndex = input.indexOf("/from ");
             int toIndex = input.indexOf("/to ", fromIndex);
             if (fromIndex == -1 || toIndex == -1) {
-                System.out.println("Error: Event task must be specified with /from and /to");
+                System.out.println("Error: luke.Event task must be specified with /from and /to");
                 return;
             }
             description = input.substring(6, fromIndex - 1);

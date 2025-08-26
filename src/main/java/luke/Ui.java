@@ -1,3 +1,5 @@
+package luke;
+
 public class Ui {
 
     protected String hello;
