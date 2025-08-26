@@ -1,5 +1,3 @@
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -40,33 +38,9 @@ public class Parser {
             }
             tasks = tasklist.tasks;
 
-            try {
-                FileWriter writer = new FileWriter("tasks.txt");
-                for (Task task: tasks) {
-                    String type;
-                    int isCompleted;
-                    if (task.completed) {
-                        isCompleted = 1;
-                    } else {
-                        isCompleted = 0;
-                    }
-                    if (task instanceof ToDo) {
-                        type = "T";
-                        writer.write(type + "|" + isCompleted + "|" + task.description + "\n");
-                    } else if (task instanceof Deadline) {
-                        type = "D";
-                        writer.write(type + "|" + isCompleted + "|" + task.description +
-                                "|" + ((Deadline) task).by + "\n");
-                    } else {
-                        type = "E";
-                        writer.write(type + "|" + isCompleted + "|" + task.description +
-                                "|" + ((Event) task).from + "|" + ((Event) task).to + "\n");
-                    }
-                }
-                writer.close();
-            } catch (IOException e) {
-                System.out.println("Error: " + e);
-            }
+            Storage storage = new Storage("tasks.txt");
+            storage.tasks = tasks;
+            storage.save();
 
             input = sc.nextLine();
         }

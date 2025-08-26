@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -48,6 +50,36 @@ public class Storage {
         } catch (FileNotFoundException e) {
             File taskFile = new File("tasks.txt");
             System.out.println("File created: " + taskFile.getName());
+        }
+    }
+
+    public void save() {
+        try {
+            FileWriter writer = new FileWriter("tasks.txt");
+            for (Task task: tasks) {
+                String type;
+                int isCompleted;
+                if (task.completed) {
+                    isCompleted = 1;
+                } else {
+                    isCompleted = 0;
+                }
+                if (task instanceof ToDo) {
+                    type = "T";
+                    writer.write(type + "|" + isCompleted + "|" + task.description + "\n");
+                } else if (task instanceof Deadline) {
+                    type = "D";
+                    writer.write(type + "|" + isCompleted + "|" + task.description +
+                            "|" + ((Deadline) task).by + "\n");
+                } else {
+                    type = "E";
+                    writer.write(type + "|" + isCompleted + "|" + task.description +
+                            "|" + ((Event) task).from + "|" + ((Event) task).to + "\n");
+                }
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
         }
     }
 }
