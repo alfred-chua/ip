@@ -1,18 +1,26 @@
 import java.util.ArrayList;
 
 public class Luke {
-    public static void main(String[] args) {
 
-        Ui ui = new Ui();
+    private final Ui ui;
+    private final Parser parser;
+
+    public Luke() {
         Storage storage = new Storage("tasks.txt");
         storage.initialize();
         ArrayList<Task> tasks = storage.tasks;
 
+        this.ui = new Ui();
+        this.parser = new Parser("", tasks);
+    }
+
+    public void run() {
         ui.greet();
-
-        Parser parser = new Parser("", tasks);
         parser.run();
-
         ui.bye();
+    }
+
+    public static void main(String[] args) {
+        new Luke().run();
     }
 }
