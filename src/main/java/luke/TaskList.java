@@ -78,6 +78,22 @@ public class TaskList {
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
     }
 
+    public void findTasks(String input) {
+        this.input = input;
+        String searchedWord = input.substring(5);
+        System.out.println("Here are the matching tasks in your list:");
+        int index = 0;
+        for (Task task: tasks) {
+            if (task.description.contains(searchedWord)) {
+                index++;
+                System.out.println(index + ". " + task);
+            }
+        }
+        if (index == 0) {
+            System.out.println("No tasks matched your search.");
+        }
+    }
+
     /**
      * Adds task given by user to list of tasks
      * Task must be a Todo, Deadline, or Event.
