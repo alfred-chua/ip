@@ -27,7 +27,7 @@ public class TaskListTest {
         TaskList tasklist = new TaskList("list", new ArrayList<>());
         tasklist.addTask("todo buy bread");
         tasklist.markTask("mark 1");
-        assertTrue(tasklist.tasks.get(0).completed);
+        assertTrue(tasklist.tasks.get(0).isCompleted);
     }
 
     @Test

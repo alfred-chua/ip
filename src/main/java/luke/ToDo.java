@@ -4,7 +4,7 @@ public class ToDo extends Task {
 
     public ToDo(String description) {
         super(description);
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     @Override

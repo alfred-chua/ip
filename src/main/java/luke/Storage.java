@@ -45,7 +45,7 @@ public class Storage {
                     System.out.println("Error: task type not recognized when reading file");
                 }
                 if (Objects.equals(parts[1], "1") && !isNull(task)) {
-                    task.completed = true;
+                    task.isCompleted = true;
                 }
                 tasks.add(task);
             }
@@ -61,7 +61,7 @@ public class Storage {
             for (Task task: tasks) {
                 String type;
                 int isCompleted;
-                if (task.completed) {
+                if (task.isCompleted) {
                     isCompleted = 1;
                 } else {
                     isCompleted = 0;
