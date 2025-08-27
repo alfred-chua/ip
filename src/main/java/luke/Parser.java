@@ -28,6 +28,9 @@ public class Parser {
             } else if (input.startsWith("delete ")) {
                 tasklist.deleteTask(input);
 
+            } else if (input.startsWith("find ")) {
+                tasklist.findTasks(input);
+
             } else if (input.startsWith("todo ") ||
                     input.startsWith("deadline ") ||
                     input.startsWith("event ")) {
