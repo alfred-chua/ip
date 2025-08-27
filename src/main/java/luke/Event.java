@@ -12,7 +12,7 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     @Override

@@ -3,19 +3,19 @@ package luke;
 public class Task {
 
     protected String description;
-    protected boolean completed;
+    protected boolean isCompleted;
 
     public Task(String description) {
         this.description = description;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     public void complete() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     public String toString() {
-        if (this.completed) {
+        if (this.isCompleted) {
             return "[X] " + this.description;
         } else {
             return "[ ] " + this.description;
