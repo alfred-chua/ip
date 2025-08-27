@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Luke {
 
-    private final Ui ui;
-    private final Parser parser;
+    protected final Ui ui;
+    protected final Parser parser;
 
     public Luke() {
         Storage storage = new Storage("tasks.txt");
