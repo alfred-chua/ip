@@ -16,6 +16,10 @@ public class Luke {
         this.parser = new Parser("", tasks);
     }
 
+    /**
+     * Greets the user, parses user input.
+     * Says goodbye when user input is "bye".
+     */
     public void run() {
         ui.greet();
         parser.run();

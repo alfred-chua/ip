@@ -13,6 +13,10 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Prints out list of tasks.
+     * If the list of tasks is empty, no tasks is printed.
+     */
     public void listTasks() {
         this.input = "list";
         int len = tasks.size();
@@ -26,6 +30,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks task number given by user as completed.
+     * @param input user input: "mark [task number]"
+     */
     public void markTask(String input) {
         this.input = input;
         String strIndex = input.substring(5);
@@ -45,6 +53,10 @@ public class TaskList {
         System.out.println(tasks.get(index - 1));
     }
 
+    /**
+     * Deletes task number given by user
+     * @param input user input: "delete [task number]".
+     */
     public void deleteTask(String input) {
         this.input = input;
         String strIndex = input.substring(7);
@@ -66,6 +78,13 @@ public class TaskList {
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
     }
 
+    /**
+     * Adds task given by user to list of tasks
+     * Task must be a Todo, Deadline, or Event.
+     * Deadline task must include /by [date in YYYY-MM-DD]
+     * Event task must include /from [date] and /to [date]
+     * @param input user input: E.g: "todo [description]"
+     */
     public void addTask(String input) {
         Task task;
         String description;

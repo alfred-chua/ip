@@ -14,6 +14,13 @@ public class Parser {
         this.tasks = tasks;
     }
 
+    /**
+     * Main function for handling user input.
+     * Runs until user types "bye".
+     * Known commands: list, mark [task number], delete [task number],
+     *  todo [description], deadline [description] /by [YYYY-MM-DD],
+     *  event [description] /from [YYYY-MM-DD] /to [YYYY-MM-DD]
+     */
     public void run() {
         Scanner sc = new Scanner(System.in);
         TaskList tasklist = new TaskList(input, tasks);

@@ -21,6 +21,10 @@ public class Storage {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Initializes list of tasks with data from tasks.txt.
+     * If tasks.txt does not yet exist, it is created.
+     */
     public void initialize() {
         try {
             File taskFile = new File("tasks.txt");
@@ -55,6 +59,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the list of tasks into the file tasks.txt
+     */
     public void save() {
         try {
             FileWriter writer = new FileWriter("tasks.txt");
