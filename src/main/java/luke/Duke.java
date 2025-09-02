@@ -1,15 +1,33 @@
 package luke;
 
+import java.util.ArrayList;
+
 public class Duke {
-    public static void main(String[] args) {
-        System.out.println("Hello!");
+
+    protected final Ui ui;
+    protected final Parser parser;
+    protected final ArrayList<Task> tasks;
+
+    public Duke() {
+        Storage storage = new Storage("tasks.txt");
+        storage.initialize();
+        this.tasks = storage.tasks;
+
+        this.ui = new Ui();
+        this.parser = new Parser("", tasks);
     }
+
+//    public static void main(String[] args) {
+//        System.out.println("Hello!");
+//    }
 
     /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        Duke duke = new Duke();
+        Parser parser = new Parser(input, duke.tasks);
+        return parser.runGui();
     }
 }
 

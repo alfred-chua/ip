@@ -57,4 +57,43 @@ public class Parser {
             input = sc.nextLine();
         }
     }
+
+    public String runGui() {
+        String response;
+        TaskList tasklist = new TaskList(input, tasks);
+
+        if (Objects.equals(input, "list")) {
+            response = tasklist.listTasksGui();
+
+        } else if (input.startsWith("mark ")) {
+            response = tasklist.markTaskGui(input);
+
+        } else if (input.startsWith("delete ")) {
+            response = tasklist.deleteTaskGui(input);
+
+        } else if (input.startsWith("find ")) {
+            response = tasklist.findTasksGui(input);
+
+        } else if (input.startsWith("todo ") ||
+                input.startsWith("deadline ") ||
+                input.startsWith("event ")) {
+            response = tasklist.addTaskGui(input);
+
+        } else if (Objects.equals(input, "bye")) {
+            response = "Bye. Hope to see you again soon!";
+
+        } else if (!Objects.equals(input, "")) {
+            response = "Error: unknown command";
+            input = "";
+
+        } else {
+            response = "";
+        }
+        tasks = tasklist.tasks;
+
+        Storage storage = new Storage("tasks.txt");
+        storage.tasks = tasks;
+        storage.save();
+        return response;
+    }
 }
