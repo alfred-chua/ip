@@ -1,5 +1,6 @@
 package luke;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -266,7 +267,7 @@ public class TaskList {
         } else if (input.startsWith("deadline ")) {
             int byIndex = input.indexOf("/by ");
             if (byIndex == -1) {
-                return "Error: luke.Deadline task must be specified with /by ";
+                return "Error: Deadline task must be specified with /by ";
             }
             description = input.substring(9, byIndex - 1);
             String by = input.substring(byIndex + 4);
@@ -274,13 +275,18 @@ public class TaskList {
             if (by.replaceAll("\\s", "").isEmpty()) {
                 return "Error: by date cannot be empty";
             }
-            LocalDate byDate = LocalDate.parse(by);
-            task = new Deadline(description, byDate);
+            try {
+                LocalDate byDate = LocalDate.parse(by);
+                task = new Deadline(description, byDate);
+            } catch (Exception e) {
+                return "Error: byDate not in YYYY-MM-DD format";
+            }
+
         } else {
             int fromIndex = input.indexOf("/from ");
             int toIndex = input.indexOf("/to ", fromIndex);
             if (fromIndex == -1 || toIndex == -1) {
-                return "Error: luke.Event task must be specified with /from and /to";
+                return "Error: Event task must be specified with /from and /to";
             }
             description = input.substring(6, fromIndex - 1);
             String from = input.substring(fromIndex + 6, toIndex - 1);
@@ -292,9 +298,13 @@ public class TaskList {
             if (to.replaceAll("\\s", "").isEmpty()) {
                 return "Error: to date cannot be empty";
             }
-            LocalDate fromDate = LocalDate.parse(from);
-            LocalDate toDate = LocalDate.parse(to);
-            task = new Event(description, fromDate, toDate);
+            try {
+                LocalDate fromDate = LocalDate.parse(from);
+                LocalDate toDate = LocalDate.parse(to);
+                task = new Event(description, fromDate, toDate);
+            } catch (Exception e) {
+                return "Error: fromDate or toDate not in YYYY-MM-DD format";
+            }
         }
 
         if (description.replaceAll("\\s", "").isEmpty()) {
@@ -303,7 +313,7 @@ public class TaskList {
 
         tasks.add(task);
         return "Got it. I've added this task:\n" +
-                task.toString() + "\n" +
+                task + "\n" +
                 "Now you have " + tasks.size() + " tasks in the list.";
     }
 

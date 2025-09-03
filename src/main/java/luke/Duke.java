@@ -17,10 +17,6 @@ public class Duke {
         this.parser = new Parser("", tasks);
     }
 
-//    public static void main(String[] args) {
-//        System.out.println("Hello!");
-//    }
-
     /**
      * Generates a response for the user's chat message.
      */
