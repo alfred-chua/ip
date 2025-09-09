@@ -2,6 +2,9 @@ package luke;
 
 import java.util.ArrayList;
 
+/**
+ * A chatbot for managing tasks.
+ */
 public class Luke {
 
     protected final Ui ui;
@@ -26,6 +29,10 @@ public class Luke {
         ui.bye();
     }
 
+    /**
+     * Starts the chatbot.
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         new Luke().run();
     }
