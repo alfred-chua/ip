@@ -11,6 +11,10 @@ import java.util.Scanner;
 
 import static java.util.Objects.isNull;
 
+/**
+ * The Storage class stores the array of tasks
+ * and the file (tasks.txt) where the TaskList is stored.
+ */
 public class Storage {
 
     protected String filePath;

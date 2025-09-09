@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * The taskList class stores an array of tasks added by the user.
+ */
 public class TaskList {
 
     protected ArrayList<Task> tasks;
@@ -55,7 +58,7 @@ public class TaskList {
     }
 
     /**
-     * Deletes task number given by user
+     * Deletes task number given by user.
      * @param input user input: "delete [task number]".
      */
     public void deleteTask(String input) {
@@ -79,6 +82,10 @@ public class TaskList {
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
     }
 
+    /**
+     * Finds tasks that match the user's search.
+     * @param input user input: [search]".
+     */
     public void findTasks(String input) {
         this.input = input;
         String searchedWord = input.substring(5);
@@ -233,6 +240,10 @@ public class TaskList {
         return response;
     }
 
+    /**
+     * Finds tasks that match the user's search.
+     * @param input user input: [search]".
+     */
     public String findTasksGui(String input) {
         this.input = input;
         String searchedWord = input.substring(5);

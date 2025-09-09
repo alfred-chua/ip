@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * The parser class parses user input.
+ */
 public class Parser {
 
     protected String input;
@@ -58,6 +61,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Main function for handling user input.
+     * Runs until user types "bye".
+     * Known commands: list, mark [task number], delete [task number],
+     *  todo [description], deadline [description] /by [YYYY-MM-DD],
+     *  event [description] /from [YYYY-MM-DD] /to [YYYY-MM-DD]
+     */
     public String runGui() {
         String response;
         TaskList tasklist = new TaskList(input, tasks);

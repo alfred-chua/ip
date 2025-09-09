@@ -1,5 +1,9 @@
 package luke;
 
+/**
+ * The Ui class stores common phrases for Luke
+ * to interact with the user.
+ */
 public class Ui {
 
     protected String hello;
@@ -11,10 +15,16 @@ public class Ui {
         this.goodbye = "Bye. Hope to see you again soon!";
     }
 
+    /**
+     * Greets the user.
+     */
     public void greet() {
         System.out.println(hello);
     }
 
+    /**
+     * Says goodbye to the user.
+     */
     public void bye() {
         System.out.println(goodbye);
     }
