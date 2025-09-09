@@ -176,6 +176,7 @@ public class TaskList {
         if (len == 0) {
             return "You have no tasks in your list";
         } else {
+            assert len > 0;
             String response = "Here are the tasks in your list:\n";
             for (int i = 0; i < len; i++) {
                 response += (i + 1) + ". " + tasks.get(i) + "\n";
@@ -201,6 +202,7 @@ public class TaskList {
             return "Error: marked value must be a number";
         }
         tasks.get(index - 1).complete();
+        assert tasks.get(index - 1).isCompleted;
         return "Nice! I've marked this task as done:\n"
                 + tasks.get(index - 1);
     }
@@ -211,6 +213,7 @@ public class TaskList {
      */
     public String deleteTaskGui(String input) {
         this.input = input;
+        int oldTaskLen = tasks.size();
         String strIndex = input.substring(7);
         int index;
         try {
@@ -223,9 +226,10 @@ public class TaskList {
         }
 
         String response = "Noted. I've removed this task:\n"
-                + tasks.get(index - 1);
+                + tasks.get(index - 1) + "\n";
         tasks.remove(index - 1);
         response += "Now you have " + tasks.size() + " tasks in the list";
+        assert tasks.size() == oldTaskLen - 1;
         return response;
     }
 
@@ -257,6 +261,7 @@ public class TaskList {
         Task task;
         String description;
         this.input = input;
+        int oldTaskLen = tasks.size();
 
         if (input.startsWith("todo ")) {
             description = input.substring(5);
@@ -312,6 +317,7 @@ public class TaskList {
         }
 
         tasks.add(task);
+        assert tasks.size() == oldTaskLen + 1;
         return "Got it. I've added this task:\n" +
                 task + "\n" +
                 "Now you have " + tasks.size() + " tasks in the list.";
