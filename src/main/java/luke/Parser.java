@@ -75,6 +75,9 @@ public class Parser {
         if (Objects.equals(input, "list")) {
             response = tasklist.listTasksGui();
 
+        } else if (Objects.equals(input, "help")) {
+            response = tasklist.getHelpGui();
+
         } else if (input.startsWith("mark ")) {
             response = tasklist.markTaskGui(input);
 

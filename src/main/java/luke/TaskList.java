@@ -193,6 +193,31 @@ public class TaskList {
     }
 
     /**
+     * Shows help page to user.
+     */
+    public String getHelpGui() {
+        return """
+                Welcome to the help page!
+                Type 'list' to view your current tasks.
+                
+                There are 3 types of tasks: todo, deadline, and event.
+                To create a new todo task, type 'todo [description]'.
+                E.g: todo buy bread
+                To create a new deadline task, type 'deadline [description] /by [YYYY-MM-DD].
+                E.g: deadline return book /by 2020-01-03
+                To create a new event task, type 'event [description] /from [YYYY-MM-DD] /to [YYYY-MM-DD]'.
+                E.g: event midterms /from 2020-02-01 /to 2020-02-10
+                
+                Type 'mark [task number]' to mark that task as completed.
+                E.g: mark 2
+                Type 'delete [task number]' to delete that task.
+                E.g: delete 3
+                Type 'find [task]' to find all tasks that contain that word/phrase.
+                E.g: find assignment
+                Type 'bye' when you are finished!\s""";
+    }
+
+    /**
      * Marks task number given by user as completed.
      * @param input user input: "mark [task number]"
      */
